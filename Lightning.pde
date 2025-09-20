@@ -35,8 +35,8 @@ void draw() {
 
     int safety = 0;
     while (endX < screenW && safety < 20000) {
-      endX = startX + (int)(Math.random() * 10);          // 0..9
-      endY = startY + ((int)(Math.random() * 19) - 9);    // -9..9
+      endX = startX + (int)(Math.random() * 10);          
+      endY = startY + ((int)(Math.random() * 19) - 9);    
       endY = constrain(endY, 0, screenH);
 
       crackLayer.line(screenLeft + startX, screenTop + startY,
@@ -67,8 +67,9 @@ void mousePressed() {
       if (clickCount < 8) {
         addRGBGlitches(4 + clickCount * 2);
       } else {
+        // Fix for web: fully overwrite the RGB layer instead of using clear()
         rgbLayer.beginDraw();
-        rgbLayer.clear();
+        rgbLayer.background(0, 0); // fully transparent background
         rgbLayer.endDraw();
         glitchesStopped = true;
       }
